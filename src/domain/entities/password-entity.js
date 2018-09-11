@@ -11,11 +11,7 @@ class PasswordEntity {
   }
 
   compare(inputPassword, databasePassword) {
-    return new Promise((resolve, reject) => {
-      bcrypt.compare(inputPassword, databasePassword)
-        .then(resolve)
-        .catch(reject);
-    });
+    return bcrypt.compare(inputPassword, databasePassword);
   }
 
   getPasswordHashed(password) {
@@ -23,7 +19,6 @@ class PasswordEntity {
       const saltRounds = Number(SALT_ROUNDS);
       bcrypt.genSalt(saltRounds)
         .then(salt => bcrypt.hash(password, salt))
-        .then(resolve)
         .catch(reject);
     });
   }

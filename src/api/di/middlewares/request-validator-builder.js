@@ -1,6 +1,6 @@
 'use strict';
 
-const RequestValidator = require('../../../domain/models/request-validator');
+const RequestValidator = require('../../middlewares/request-validator');
 
 const requestValidator = new RequestValidator();
 

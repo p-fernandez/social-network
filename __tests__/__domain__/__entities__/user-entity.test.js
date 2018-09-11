@@ -11,7 +11,7 @@ const passwordHashed = 'passwordHashed';
 describe('User Entity', () => {
   test('createUser ok', () => {
     const created = { _id: 1 };
-    UserEntity.persistentService.createUser = jest.fn()
+    UserEntity.userPersistenceService.createUser = jest.fn()
       .mockResolvedValue(created);
 
     const res = UserEntity.createUser(mockUser.email, passwordHashed);
@@ -20,7 +20,7 @@ describe('User Entity', () => {
   });
 
   test('createUser ko', () => {
-    UserEntity.persistentService.createUser = jest.fn()
+    UserEntity.userPersistenceService.createUser = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
     const res = UserEntity.createUser(mockUser.email, passwordHashed);
@@ -30,7 +30,7 @@ describe('User Entity', () => {
 
   test('getAllUsers ok', () => {
     const users = [];
-    UserEntity.persistentService.getAll = jest.fn()
+    UserEntity.userPersistenceService.getAll = jest.fn()
       .mockResolvedValue(users);
 
     const res = UserEntity.getAllUsers();
@@ -39,7 +39,7 @@ describe('User Entity', () => {
   });
 
   test('getAllUsers ko', () => {
-    UserEntity.persistentService.getAll = jest.fn()
+    UserEntity.userPersistenceService.getAll = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
     const res = UserEntity.getAllUsers();
@@ -48,7 +48,7 @@ describe('User Entity', () => {
   });
 
   test('getUser ok', () => {
-    UserEntity.persistentService.getUser = jest.fn()
+    UserEntity.userPersistenceService.getUser = jest.fn()
       .mockResolvedValue(mockUser);
 
     const res = UserEntity.getUser(mockUser.email);
@@ -57,7 +57,7 @@ describe('User Entity', () => {
   });
 
   test('getUser ko', () => {
-    UserEntity.persistentService.getUser = jest.fn()
+    UserEntity.userPersistenceService.getUser = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
     const res = UserEntity.getUser(mockUser);
@@ -66,7 +66,7 @@ describe('User Entity', () => {
   });
 
   test('userExists ok', () => {
-    UserEntity.persistentService.userExists = jest.fn()
+    UserEntity.userPersistenceService.userExists = jest.fn()
       .mockResolvedValue(true);
 
     const res = UserEntity.userExists(mockUser.email);
@@ -75,7 +75,7 @@ describe('User Entity', () => {
   });
 
   test('userExists ko', () => {
-    UserEntity.persistentService.userExists = jest.fn()
+    UserEntity.userPersistenceService.userExists = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
     const res = UserEntity.userExists(mockUser.email);

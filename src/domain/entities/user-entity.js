@@ -1,8 +1,8 @@
 'use strict';
 
 class UserEntity {
-  constructor(persistentService) {
-    this.persistentService = persistentService;
+  constructor(userPersistenceService) {
+    this.userPersistenceService = userPersistenceService;
 
     this.createUser = this.createUser.bind(this);
     this.getAllUsers = this.getAllUsers.bind(this);
@@ -12,7 +12,7 @@ class UserEntity {
 
   createUser(email, passwordHashed) {
     return new Promise((resolve, reject) => {
-      this.persistentService.createUser(email, passwordHashed)
+      this.userPersistenceService.createUser(email, passwordHashed)
         .then(resolve)
         .catch(reject);
     });
@@ -20,7 +20,7 @@ class UserEntity {
 
   getAllUsers() {
     return new Promise((resolve, reject) => {
-      this.persistentService.getAll()
+      this.userPersistenceService.getAll()
         .then(users => resolve({
           users,
         }))
@@ -30,7 +30,7 @@ class UserEntity {
 
   getUser(email) {
     return new Promise((resolve, reject) => {
-      this.persistentService.getUser(email)
+      this.userPersistenceService.getUser(email)
         .then(resolve)
         .catch(reject);
     });
@@ -38,7 +38,7 @@ class UserEntity {
 
   userExists(email) {
     return new Promise((resolve, reject) => {
-      this.persistentService.userExists(email)
+      this.userPersistenceService.userExists(email)
         .then(resolve)
         .catch(reject);
     });

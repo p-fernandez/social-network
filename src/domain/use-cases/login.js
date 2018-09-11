@@ -23,7 +23,7 @@ class LoginUseCase {
           }
 
           return resolve({
-            code: 403,
+            code: 401,
             message: 'Invalid password',
           });
         })

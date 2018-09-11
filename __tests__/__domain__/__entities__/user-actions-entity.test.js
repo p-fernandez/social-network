@@ -6,7 +6,7 @@ const errorMessage = 'This blew up!';
 
 describe('User Actions Entity', () => {
   test('addUserConnection ok', () => {
-    UserActionsEntity.persistentService.addUserConnection = jest.fn()
+    UserActionsEntity.userPersistenceService.addUserConnection = jest.fn()
       .mockResolvedValue(true);
 
     const res = UserActionsEntity.addUserConnection(1, 2);
@@ -15,7 +15,7 @@ describe('User Actions Entity', () => {
   });
 
   test('addUserConnection ko', () => {
-    UserActionsEntity.persistentService.addUserConnection = jest.fn()
+    UserActionsEntity.userPersistenceService.addUserConnection = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
     const res = UserActionsEntity.addUserConnection(1, 2);
@@ -24,7 +24,7 @@ describe('User Actions Entity', () => {
   });
 
   test('removeUserConnection ok', () => {
-    UserActionsEntity.persistentService.removeUserConnection = jest.fn()
+    UserActionsEntity.userPersistenceService.removeUserConnection = jest.fn()
       .mockResolvedValue(true);
 
     const res = UserActionsEntity.removeUserConnection(1, 2);
@@ -33,7 +33,7 @@ describe('User Actions Entity', () => {
   });
 
   test('removeUserConnection ko', () => {
-    UserActionsEntity.persistentService.removeUserConnection = jest.fn()
+    UserActionsEntity.userPersistenceService.removeUserConnection = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
     const res = UserActionsEntity.removeUserConnection(1, 2);

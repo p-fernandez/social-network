@@ -6,7 +6,7 @@ describe('UserActions Entity Builder', () => {
   test('UserActions Entity', () => {
     expect(UserActionsEntityBuilder).toEqual({
       addUserConnection: expect.anything(),
-      persistentService: expect.anything(),
+      userPersistenceService: expect.anything(),
       removeUserConnection: expect.anything(),
     });
   });

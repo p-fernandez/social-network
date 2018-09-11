@@ -1,86 +1,86 @@
 'use strict';
 
-const PersistentService = require('../../../src/domain/di/services/persistent-service-builder');
+const UserPersistenceService = require('../../../src/domain/di/services/user-persistence-service-builder');
 const mockUser = require('../../mocks/user');
 
 const errorMessage = 'This blew up!';
 const passwordHashed = 'passwordHashed';
 
-describe('Persistent Service', () => {
+describe('UserPersistence Service', () => {
   test('addUserConnection ok', () => {
     const serviceResponse = {
       matchedCount: 1,
       modifiedCount: 1,
     };
-    PersistentService.mongoService.addUserConnection = jest.fn()
+    UserPersistenceService.persistenceProvider.addUserConnection = jest.fn()
       .mockResolvedValue(serviceResponse);
 
-    const res = PersistentService.addUserConnection(1, 2);
+    const res = UserPersistenceService.addUserConnection(1, 2);
 
     expect(res).resolves.toEqual(serviceResponse);
   });
 
   test('addUserConnection ko', () => {
-    PersistentService.mongoService.addUserConnection = jest.fn()
+    UserPersistenceService.persistenceProvider.addUserConnection = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
-    const res = PersistentService.addUserConnection(1, 2);
+    const res = UserPersistenceService.addUserConnection(1, 2);
 
     expect(res).rejects.toEqual(new Error(errorMessage));
   });
 
   test('createUser ok', () => {
     const created = { _id: 1 };
-    PersistentService.mongoService.createUser = jest.fn()
+    UserPersistenceService.persistenceProvider.createUser = jest.fn()
       .mockResolvedValue(created);
 
-    const res = PersistentService.createUser(mockUser.email, passwordHashed);
+    const res = UserPersistenceService.createUser(mockUser.email, passwordHashed);
 
     expect(res).resolves.toEqual(created);
   });
 
   test('createUser ko', () => {
-    PersistentService.mongoService.createUser = jest.fn()
+    UserPersistenceService.persistenceProvider.createUser = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
-    const res = PersistentService.createUser(mockUser.email, passwordHashed);
+    const res = UserPersistenceService.createUser(mockUser.email, passwordHashed);
 
     expect(res).rejects.toEqual(new Error(errorMessage));
   });
 
   test('getAll ok', () => {
     const users = [];
-    PersistentService.mongoService.getAll = jest.fn()
+    UserPersistenceService.persistenceProvider.getAll = jest.fn()
       .mockResolvedValue(users);
 
-    const res = PersistentService.getAll();
+    const res = UserPersistenceService.getAll();
 
     expect(res).resolves.toEqual(users);
   });
 
   test('getAll ko', () => {
-    PersistentService.mongoService.getAll = jest.fn()
+    UserPersistenceService.persistenceProvider.getAll = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
-    const res = PersistentService.getAll();
+    const res = UserPersistenceService.getAll();
 
     expect(res).rejects.toEqual(new Error(errorMessage));
   });
 
   test('getUser ok', () => {
-    PersistentService.mongoService.getUser = jest.fn()
+    UserPersistenceService.persistenceProvider.getUser = jest.fn()
       .mockResolvedValue(mockUser);
 
-    const res = PersistentService.getUser(mockUser.email);
+    const res = UserPersistenceService.getUser(mockUser.email);
 
     expect(res).resolves.toEqual(mockUser);
   });
 
   test('getUser ko', () => {
-    PersistentService.mongoService.getUser = jest.fn()
+    UserPersistenceService.persistenceProvider.getUser = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
-    const res = PersistentService.getUser(mockUser);
+    const res = UserPersistenceService.getUser(mockUser);
 
     expect(res).rejects.toEqual(new Error(errorMessage));
   });
@@ -90,37 +90,37 @@ describe('Persistent Service', () => {
       matchedCount: 1,
       modifiedCount: 1,
     };
-    PersistentService.mongoService.removeUserConnection = jest.fn()
+    UserPersistenceService.persistenceProvider.removeUserConnection = jest.fn()
       .mockResolvedValue(serviceResponse);
 
-    const res = PersistentService.removeUserConnection(1, 2);
+    const res = UserPersistenceService.removeUserConnection(1, 2);
 
     expect(res).resolves.toEqual(serviceResponse);
   });
 
   test('removeUserConnection ko', () => {
-    PersistentService.mongoService.removeUserConnection = jest.fn()
+    UserPersistenceService.persistenceProvider.removeUserConnection = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
-    const res = PersistentService.addUserConnection(1, 2);
+    const res = UserPersistenceService.addUserConnection(1, 2);
 
     expect(res).rejects.toEqual(new Error(errorMessage));
   });
 
   test('userExists ok', () => {
-    PersistentService.getUser = jest.fn()
+    UserPersistenceService.getUser = jest.fn()
       .mockResolvedValue(true);
 
-    const res = PersistentService.userExists(mockUser.email);
+    const res = UserPersistenceService.userExists(mockUser.email);
 
     expect(res).resolves.toEqual(true);
   });
 
   test('userExists ko', () => {
-    PersistentService.getUser = jest.fn()
+    UserPersistenceService.getUser = jest.fn()
       .mockRejectedValue(new Error(errorMessage));
 
-    const res = PersistentService.userExists(mockUser.email);
+    const res = UserPersistenceService.userExists(mockUser.email);
 
     expect(res).rejects.toEqual(new Error(errorMessage));
   });

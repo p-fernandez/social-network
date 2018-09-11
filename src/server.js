@@ -12,7 +12,7 @@ const helmet = require('helmet');
 
 const routes = require('./api/routes');
 const whitelist = require('./whitelist-entity');
-const mongo = require('./domain/di/infrastructure/mongo/mongo-connector-builder');
+const database = require('./domain/di/infrastructure/mongo/mongo-connector-builder');
 
 const port = process.env.PORT;
 const app = express();
@@ -79,18 +79,14 @@ class Server {
   }
 
   async init() {
-    this.server = app.listen(port);
+    this.server = await app.listen(port);
     console.log(`API server listening in port ${port}`);
-    await mongo.connect();
+    await database.connect();
   }
 
-  shutdown() {
-    return new Promise((resolve, reject) => {
-      this.server.close()
-        .then(() => mongo.close())
-        .then(resolve)
-        .catch(reject);
-    });
+  async shutdown() {
+    await this.server.close();
+    await database.close();
   }
 }
 

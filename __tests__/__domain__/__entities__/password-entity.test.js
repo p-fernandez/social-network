@@ -33,15 +33,15 @@ describe('Password Entity', () => {
     expect(res).rejects.toEqual(new Error(errorMessage));
   });
 
-  test('getPasswordHashed OK', async() => {
+  test('getPasswordHashed OK', () => {
     bcrypt.genSalt = jest.fn()
       .mockResolvedValue('salt');
     bcrypt.hash = jest.fn()
       .mockResolvedValue('passwordHashed');
 
-    const res = await PasswordEntity.getPasswordHashed('password');
+    const res = PasswordEntity.getPasswordHashed('password');
 
-    expect(res).toBe('passwordHashed');
+    expect(res).resolves.toBe('passwordHashed');
   });
 
   test('getPasswordHashed KO bcrypt crashes', () => {

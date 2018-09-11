@@ -6,7 +6,7 @@ const mockUser = require('../../mocks/user');
 const errorMessage = 'This blew up!';
 
 describe('Login Use Case', () => {
-  test('execute OK', async() => {
+  test('execute OK', () => {
     LoginUseCase.userEntity.getUser = jest.fn()
       .mockResolvedValue(mockUser);
 
@@ -19,7 +19,7 @@ describe('Login Use Case', () => {
     expect(res).resolves.toEqual(mockUserWithoutPassword);
   });
 
-  test('execute KO', async() => {
+  test('execute KO', () => {
     LoginUseCase.userEntity.getUser = jest.fn()
       .mockResolvedValue(mockUser);
 
@@ -29,7 +29,7 @@ describe('Login Use Case', () => {
     const res = LoginUseCase.execute(mockUser.email, 'password');
 
     expect(res).resolves.toEqual({
-      code: 403,
+      code: 401,
       message: 'Invalid password',
     });
   });

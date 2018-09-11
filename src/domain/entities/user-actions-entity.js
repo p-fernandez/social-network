@@ -1,8 +1,8 @@
 'use strict';
 
 class UserActionsEntity {
-  constructor(persistentService) {
-    this.persistentService = persistentService;
+  constructor(userPersistenceService) {
+    this.userPersistenceService = userPersistenceService;
 
     this.addUserConnection = this.addUserConnection.bind(this);
     this.removeUserConnection = this.removeUserConnection.bind(this);
@@ -10,7 +10,7 @@ class UserActionsEntity {
 
   addUserConnection(userId, requestedId) {
     return new Promise((resolve, reject) => {
-      this.persistentService.addUserConnection(userId, requestedId)
+      this.userPersistenceService.addUserConnection(userId, requestedId)
         .then(resolve)
         .catch(reject);
     });
@@ -18,7 +18,7 @@ class UserActionsEntity {
 
   removeUserConnection(userId, requestedId) {
     return new Promise((resolve, reject) => {
-      this.persistentService.removeUserConnection(userId, requestedId)
+      this.userPersistenceService.removeUserConnection(userId, requestedId)
         .then(resolve)
         .catch(reject);
     });

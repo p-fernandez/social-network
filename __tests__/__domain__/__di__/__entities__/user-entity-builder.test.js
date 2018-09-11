@@ -8,7 +8,7 @@ describe('User Entity Builder', () => {
       createUser: expect.anything(),
       getAllUsers: expect.anything(),
       getUser: expect.anything(),
-      persistentService: expect.anything(),
+      userPersistenceService: expect.anything(),
       userExists: expect.anything(),
     });
   });

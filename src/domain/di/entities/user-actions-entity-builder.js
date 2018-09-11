@@ -1,8 +1,8 @@
 'use strict';
 
 const UserActionsEntity = require('../../entities/user-actions-entity');
-const persistentService = require('../services/persistent-service-builder');
+const userPersistenceService = require('../services/user-persistence-service-builder');
 
-const userActionsEntity = new UserActionsEntity(persistentService);
+const userActionsEntity = new UserActionsEntity(userPersistenceService);
 
 module.exports = userActionsEntity;
