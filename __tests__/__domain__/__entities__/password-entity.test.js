@@ -17,12 +17,11 @@ describe('Password Entity', () => {
   });
 
   test('compare KO', () => {
-    bcrypt.compare = jest.fn()
-      .mockResolvedValue(false);
+    bcrypt.compare = jest.fn().mockResolvedValue(false);
 
     const res = PasswordEntity.compare('password', 'passwordDifferent');
 
-    expect(res).rejects.toEqual(false);
+    expect(res).resolves.toEqual(false);
   });
 
   test('compare KO bcrypt crashes', () => {

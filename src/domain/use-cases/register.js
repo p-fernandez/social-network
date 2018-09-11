@@ -13,7 +13,6 @@ class RegisterUseCase {
         this.userEntity.userExists(email),
       ])
         .then(([passwordHashed, exists]) => {
-          console.log(passwordHashed, exists);
           if (exists) {
             return resolve({
               code: 409,
@@ -24,7 +23,7 @@ class RegisterUseCase {
           return this.userEntity.createUser(email, passwordHashed);
         })
         .then(resolve)
-        .catch(console.log(reject) || reject);
+        .catch(reject);
     });
   }
 }

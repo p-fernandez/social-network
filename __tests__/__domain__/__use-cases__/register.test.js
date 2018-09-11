@@ -1,6 +1,6 @@
 'use strict';
 
-const RegisterUseCase = require('../../../src/domain/di/use-cases/login-builder');
+const RegisterUseCase = require('../../../src/domain/di/use-cases/register-builder');
 const mockUser = require('../../mocks/user');
 
 const errorMessage = 'This blew up!';

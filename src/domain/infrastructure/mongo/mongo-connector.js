@@ -23,7 +23,7 @@ class MongoConnector {
   }
 
   async close() {
-    return this.client.close();
+    await this.client.close();
   }
 
   async connect() {

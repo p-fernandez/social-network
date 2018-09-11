@@ -17,17 +17,35 @@ describe('Mongo Repository', () => {
     expect(url).toBe(envUrl);
   });
 
-  test('Connect and check params', async() => {
-    try {
-      await mongoRepository.connect();
+  test('Connect and check params', () => {
+    mongoRepository.connect = jest.fn()
+      .mockResolvedValue(true);
 
-      const { client, dbName, url } = mongoRepository;
+    const res = mongoRepository.connect();
 
-      expect(client).not.toBeNull();
-      expect(dbName).toBe(envDbName);
-      expect(url).toBe(envUrl);
-    } catch (error) {
-      console.log(error);
-    }
+    const { dbName, url } = mongoRepository;
+
+    expect(dbName).toBe(envDbName);
+    expect(url).toBe(envUrl);
+
+    expect(res).resolves.toBe(true);
+  });
+
+  test('Connect KO', () => {
+    mongoRepository.connect = jest.fn()
+      .mockResolvedValue(false);
+
+    const res = mongoRepository.connect();
+
+    expect(res).resolves.toBe(false);
+  });
+
+  test('Close', async() => {
+    mongoRepository.close = jest.fn()
+      .mockResolvedValue(true);
+
+    const res = mongoRepository.close();
+
+    expect(res).resolves.toBe(true);
   });
 });

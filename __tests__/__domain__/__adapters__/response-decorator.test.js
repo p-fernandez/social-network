@@ -45,4 +45,30 @@ describe('Response Adapter', () => {
       },
     });
   });
+
+  test('accountResponse OK default', () => {
+    const data = {
+      random: 1,
+    };
+
+    const res = ResponseAdapter.accountResponse(data);
+
+    expect(res).toEqual({
+      status: 200,
+      payload: data,
+    });
+  });
+
+  test('authResponse OK default', () => {
+    const data = {
+      random: 1,
+    };
+
+    const res = ResponseAdapter.authResponse(data);
+
+    expect(res).toEqual({
+      status: 200,
+      payload: data,
+    });
+  });
 });
