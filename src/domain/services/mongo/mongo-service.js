@@ -55,8 +55,8 @@ class MongoService {
 
         const users = cursor.toArray();
         return resolve(users);
-      } catch (Error) {
-        return reject(Error);
+      } catch (error) {
+        return reject(error);
       }
     });
   }
