@@ -62,12 +62,8 @@ class MongoService {
   }
 
   getUser(email) {
-    return new Promise((resolve, reject) => {
-      this.mongoRepository.client
-        .db(`${this.mongoRepository.dbName}`).collection('users').findOne({ email })
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.mongoRepository.client
+      .db(`${this.mongoRepository.dbName}`).collection('users').findOne({ email });
   }
 
   removeUserConnection(userId, requestedId) {
@@ -78,14 +74,10 @@ class MongoService {
   }
 
   updateOne(query, update) {
-    return new Promise((resolve, reject) => {
-      this.mongoRepository.client
-        .db(`${this.mongoRepository.dbName}`)
-        .collection('users')
-        .updateOne(query, update)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.mongoRepository.client
+      .db(`${this.mongoRepository.dbName}`)
+      .collection('users')
+      .updateOne(query, update);
   }
 }
 

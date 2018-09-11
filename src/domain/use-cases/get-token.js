@@ -6,11 +6,7 @@ class GetTokenUseCase {
   }
 
   execute(digest) {
-    return new Promise((resolve, reject) => {
-      this.tokenEntity.getToken(digest)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.tokenEntity.getToken(digest);
   }
 }
 

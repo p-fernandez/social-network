@@ -13,43 +13,23 @@ class UserPersistenceService {
   }
 
   addUserConnection(userId, requestedId) {
-    return new Promise((resolve, reject) => {
-      this.persistenceProvider.addUserConnection(userId, requestedId)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.persistenceProvider.addUserConnection(userId, requestedId);
   }
 
   createUser(email, password) {
-    return new Promise((resolve, reject) => {
-      this.persistenceProvider.createUser(email, password)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.persistenceProvider.createUser(email, password);
   }
 
   getAll() {
-    return new Promise((resolve, reject) => {
-      this.persistenceProvider.getAll()
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.persistenceProvider.getAll();
   }
 
   getUser(email) {
-    return new Promise((resolve, reject) => {
-      this.persistenceProvider.getUser(email)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.persistenceProvider.getUser(email);
   }
 
   removeUserConnection(userId, requestedId) {
-    return new Promise((resolve, reject) => {
-      this.persistenceProvider.removeUserConnection(userId, requestedId)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.persistenceProvider.removeUserConnection(userId, requestedId);
   }
 
   userExists(email) {

@@ -19,6 +19,7 @@ class PasswordEntity {
       const saltRounds = Number(SALT_ROUNDS);
       bcrypt.genSalt(saltRounds)
         .then(salt => bcrypt.hash(password, salt))
+        .then(resolve)
         .catch(reject);
     });
   }

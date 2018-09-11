@@ -11,11 +11,7 @@ class UserEntity {
   }
 
   createUser(email, passwordHashed) {
-    return new Promise((resolve, reject) => {
-      this.userPersistenceService.createUser(email, passwordHashed)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.userPersistenceService.createUser(email, passwordHashed);
   }
 
   getAllUsers() {
@@ -29,19 +25,11 @@ class UserEntity {
   }
 
   getUser(email) {
-    return new Promise((resolve, reject) => {
-      this.userPersistenceService.getUser(email)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.userPersistenceService.getUser(email);
   }
 
   userExists(email) {
-    return new Promise((resolve, reject) => {
-      this.userPersistenceService.userExists(email)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.userPersistenceService.userExists(email);
   }
 }
 

@@ -9,19 +9,11 @@ class UserActionsEntity {
   }
 
   addUserConnection(userId, requestedId) {
-    return new Promise((resolve, reject) => {
-      this.userPersistenceService.addUserConnection(userId, requestedId)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.userPersistenceService.addUserConnection(userId, requestedId);
   }
 
   removeUserConnection(userId, requestedId) {
-    return new Promise((resolve, reject) => {
-      this.userPersistenceService.removeUserConnection(userId, requestedId)
-        .then(resolve)
-        .catch(reject);
-    });
+    return this.userPersistenceService.removeUserConnection(userId, requestedId);
   }
 }
 
