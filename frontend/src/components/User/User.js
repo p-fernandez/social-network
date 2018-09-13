@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { Button } from '../base';
-import { updateConnectionFlow } from '../../use-cases/connections';
 
 const capitalizeFirstChar = str => str.charAt(0).toUpperCase() + str.substring(1);
 
@@ -13,8 +12,7 @@ class User extends Component {
   }
 
   onClick(event, id, form) {
-    const { viewerId } = this.props;
-    return updateConnectionFlow(form, viewerId, id);
+    this.props.onClick(event, id, form);
   }
 
   render() {
@@ -22,14 +20,10 @@ class User extends Component {
       email,
       friends,
       _id: id,
-      isAdmin,
-      viewerId,
+      isConnected,
     } = this.props;
 
-    console.log(friends, viewerId, id);
-    console.log(friends.includes(viewerId));
-    const action = friends.includes(viewerId) ? 'remove' : 'add';
-
+    const action = isConnected ? 'remove' : 'add';
     return (
       <div key={id}>
         <div>
@@ -41,10 +35,6 @@ class User extends Component {
             title={capitalizeFirstChar(action)}
             type='submit'
           />
-        </div>
-        <div>
-          {isAdmin && friends.length > 0 &&
-            'LOL'}
         </div>
       </div>
     );

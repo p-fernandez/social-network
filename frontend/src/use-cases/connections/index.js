@@ -2,13 +2,25 @@ import {
   addConnectionAction,
   removeConnectionAction,
 } from '../../models/user/actions';
+import { ERROR } from '../../http/constants';
+import { errorFeedbackAction } from '../../models/error/actions';
 
-const updateConnectionFlow = (form, viewerId, id) => {
+const updateConnectionFlow = async(form, viewerId, id) => {
+  let result = null;
+  console.log(form, viewerId, id);
   if (form === 'add') {
-    return addConnectionAction(viewerId, id);
+    result = await addConnectionAction(viewerId, id);
   } else if (form === 'remove') {
-    return removeConnectionAction(viewerId, id);
+    result = await removeConnectionAction(viewerId, id);
   }
+
+  const { data, status, statusText } = result;
+
+  if (statusText === ERROR) {
+    return errorFeedbackAction(data, status);
+  }
+
+  return result;
 };
 
 export {

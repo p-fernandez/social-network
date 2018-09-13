@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { UsersList } from '../components';
+import { UsersWrapper } from '../components';
 import { Button } from '../components/base';
 import { logoutFlow } from '../use-cases/auth';
 
@@ -35,7 +35,7 @@ class DashboardPage extends Component {
           title='Logout'
           type='submit'
         />
-        <UsersList />
+        <UsersWrapper />
       </div>
     );
   }

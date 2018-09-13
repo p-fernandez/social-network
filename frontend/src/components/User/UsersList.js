@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
 import User from './User';
+import UserAdminView from './UserAdminView';
 
 import { ErrorBar } from '../base';
 import { getUsersFlow } from '../../use-cases/get-users';
+import { updateConnectionFlow } from '../../use-cases/connections';
 import {
-  getIdFlow,
   isAdminFlow,
 } from '../../use-cases/auth';
 
@@ -16,60 +17,73 @@ class UsersList extends Component {
     this.state = {
       error: null,
       isAdmin: false,
-      users: [],
-      viewerId: null,
     };
+
+    this.onClick = this.onClick.bind(this);
   }
 
-  async componentDidMount() {
+  async onClick(event, id, form) {
+    const { profileViewer } = this.props;
+    const { _id: viewerId } = profileViewer;
+    const updated = await updateConnectionFlow(form, viewerId, id);
+    const isError = updated.errorMessage ? true : false;
     const users = await getUsersFlow();
 
-    if (users.length > 0) {
+    if (isError) {
       this.setState({
-        error: null,
-        isAdmin: isAdminFlow(),
+        error: updated,
         users,
-        viewerId: getIdFlow(),
-      });
+      });  
+    } else if (users.length > 0) {
+      this.props.onChange();
     } else {
       this.setState({
         error: users,
-        isAdmin: false,
-        viewerId: null,
-      });  
+        users: [],
+      });
     }
   }
 
-  renderUsers() {
-    const {
-      isAdmin,
-      users,
-      viewerId,
-    } = this.state;
-    
-    return users.length > 0 &&
-      users
-        .filter(user => user._id !== viewerId)
+  async componentDidMount() {
+    this.setState({
+      error: null,
+      isAdmin: isAdminFlow(),
+    });
+  }
+
+  renderAdmin(users) {
+    return users.length > 0 && users.map((user) => <UserAdminView key={user._id} {...user} />);
+  }
+
+  renderUsers(users, profileViewer) {
+    if (users.length > 0) {
+      return users.filter(user => user._id !== profileViewer._id)
         .map((user) => {
+          const isConnected = profileViewer.friends.includes(user._id);
           return (
             <User
               key={user._id}
               {...user}
-              isAdmin={isAdmin} 
-              viewerId={viewerId}
+              isConnected={isConnected}
+              onClick={this.onClick}
+              viewerId={profileViewer._id}
             />
           );
         });
+    }
+
+    return null;
   }
 
   render() {
-    const { error } = this.state;
-    return (
-      <div>
-        {this.renderUsers()}
-        {error && <ErrorBar error={error} />}
-      </div>
-    );
+    const { isAdmin } = this.state;
+    const { profileViewer, users } = this.props;
+
+    if (isAdmin) {
+      return this.renderAdmin(users);
+    }
+    
+    return this.renderUsers(users, profileViewer);
   }
 }
 

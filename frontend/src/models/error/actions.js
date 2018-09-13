@@ -10,6 +10,15 @@ const errorFeedbackAction = (data, status) => {
         }],
       };
       break;
+    case 403:
+      error = {
+        errorMessage: 'You are not authorized to do this',
+        payload: [{
+          message: 'Ask an admin for your permissions',
+          param: 'User',
+        }],
+      };
+      break;
     case 409:
       error = {
         errorMessage: 'This email is already in use.',
@@ -32,6 +41,14 @@ const errorFeedbackAction = (data, status) => {
       };
       break;
     default:
+      error = {
+        errorMessage: 'You are not authorized to do this',
+        payload: [{
+          message: 'Ask an admin for your permissions',
+          param: 'User',
+        }],
+      };
+      break;
   }
 
   return error;
