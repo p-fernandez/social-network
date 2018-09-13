@@ -32,6 +32,10 @@ class Api {
   }
 
   initialize({ baseUrl, timeout }) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.setAuthorization(token);
+    }
     this.axiosInstance.defaults.baseURL = baseUrl;
     this.axiosInstance.defaults.timeout = timeout;
   }

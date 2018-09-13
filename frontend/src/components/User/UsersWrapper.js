@@ -36,11 +36,20 @@ class UsersWrapper extends Component {
     const viewerId = getIdFlow();
     const users = await getUsersFlow();
     const profileViewer = getProfileViewerIdFlow(viewerId, users);
-    this.setState({
-      profileViewer,
-      users,
-      error: null,
-    });
+    if (users.length) {
+     this.setState({
+        profileViewer,
+        users,
+        error: null,
+      });
+    } else {
+      this.setState({
+        profileViewer,
+        users: [],
+        error: users,
+      });
+
+    }
   }
 
   render() {

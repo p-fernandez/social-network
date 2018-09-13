@@ -18,7 +18,6 @@ class User extends Component {
   render() {
     const {
       email,
-      friends,
       _id: id,
       isConnected,
     } = this.props;

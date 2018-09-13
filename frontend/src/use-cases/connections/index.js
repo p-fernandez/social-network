@@ -7,7 +7,6 @@ import { errorFeedbackAction } from '../../models/error/actions';
 
 const updateConnectionFlow = async(form, viewerId, id) => {
   let result = null;
-  console.log(form, viewerId, id);
   if (form === 'add') {
     result = await addConnectionAction(viewerId, id);
   } else if (form === 'remove') {

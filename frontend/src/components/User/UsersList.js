@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import User from './User';
 import UserAdminView from './UserAdminView';
 
-import { ErrorBar } from '../base';
 import { getUsersFlow } from '../../use-cases/get-users';
 import { updateConnectionFlow } from '../../use-cases/connections';
 import {
