@@ -2,7 +2,7 @@
 
 const jwt = require('jsonwebtoken');
 
-const CLIENT_KEY = process.env.CLIENT_KEY;
+const { CLIENT_KEY } = process.env;
 const EXPIRATION_TIME = process.env.EXPIRATION_TIME || '1h';
 
 class TokenEntity {
@@ -25,8 +25,11 @@ class TokenEntity {
     });
   }
 
-  generateToken(userId) {
-    const info = { iss: userId };
+  generateToken(userId, role) {
+    const info = {
+      iss: userId,
+      admin: role === 'admin',
+    };
     const jwtToken = jwt.sign(info, CLIENT_KEY, { expiresIn: EXPIRATION_TIME });
     return jwtToken;
   }
@@ -34,9 +37,9 @@ class TokenEntity {
   getToken(secret) {
     return new Promise((resolve) => {
       const decoded = Buffer.from(secret, 'base64').toString('ascii');
-      const [clientKey, userId] = decoded.split(':');
+      const [clientKey, userId, role] = decoded.split(':');
       if (CLIENT_KEY === clientKey) {
-        const authorization = this.generateToken(userId);
+        const authorization = this.generateToken(userId, role);
         return resolve({
           authorization,
         });
