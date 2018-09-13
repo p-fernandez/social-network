@@ -34,6 +34,16 @@ const deleteTokenInStorage = () => {
 
 const generateDigest = (id, role) => btoa(`${process.env.REACT_APP_CLIENT_KEY}:${id}:${role}`);
 
+const getId = () => {
+  const token = localStorage.getItem('token');
+  const decoded = decodeJwt(token);
+  if (decoded && decoded.iss) {
+    return decoded.iss;
+  }
+
+  return 0;
+};
+
 const getTokenAction = async(digest) => {
   const response = await getToken(digest);
 
@@ -44,16 +54,6 @@ const getTokenAction = async(digest) => {
   }
 
   return data.authorization;
-};
-
-const getId = () => {
-  const token = localStorage.getItem('token');
-  const decoded = decodeJwt(token);
-  if (decoded && decoded.iss) {
-    return decoded.iss;
-  }
-
-  return 0;
 };
 
 const isAdmin = () => {
@@ -72,6 +72,7 @@ const saveTokenInStorage = (token) => {
 
 export {
   checkStorageHasToken,
+  decodeJwt,
   deleteTokenInStorage,
   generateDigest,
   getId,
