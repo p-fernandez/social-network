@@ -4,7 +4,7 @@ Just execute the bash script `install.sh` if you have `yarn` installed globally.
 
 If not, install manually the root project and then the backend and the frontend with `npm install`.
 
-Note: `engines` attribute is set to `node` version `10.7.0` because of the `bcrypt` package. If you try to install it with LTS (currently, 8.11.4) it fails. Also with previous versions of the LTS.
+Note: `engines` attribute is set to `node` version `10.7.0` because of the `bcrypt` package. If you try to install it with LTS (currently, `8.11.4`) it fails. Also with previous versions of the LTS.
 
 # How to run it
 First there will be needed two environment files:
